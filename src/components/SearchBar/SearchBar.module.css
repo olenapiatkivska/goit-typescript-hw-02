@@ -1,0 +1,46 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999999;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(255, 255, 0, 0.9);
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.5);
+  padding: 10px;
+}
+.formSearchBar {
+  display: flex;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.888);
+  border: 1px solid transparent;
+  border-radius: 6px;
+}
+.formSearchInput {
+  width: 300px;
+  padding: 8px 18px;
+  outline: transparent;
+  font-size: 18px;
+  color: grey;
+  background-color: rgba(0, 0, 0, 0.756);
+  border: 1px solid transparent;
+  border-radius: 6px;
+}
+.formSearchBar:has(
+    .formSearchInput:hover,
+    .formSearchInput:focus,
+    .formSearchInput:active
+  ) {
+  border: 2px solid gold;
+}
+.formSearchBtn {
+  display: flex;
+  align-items: center;
+  color: yellow;
+  padding: 6px;
+  background-color: rgba(0, 0, 0, 0.756);
+  outline: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+}
