@@ -11,6 +11,7 @@ import ImageModal from '../ImageModal/ImageModal';
 import './App.css';
 import {
   HandleLoadMore,
+  HandleModalClose,
   HandleModalOpen,
   HandleSearch,
   Image,
