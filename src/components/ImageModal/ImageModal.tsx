@@ -2,8 +2,14 @@ import Modal from 'react-modal';
 import { FaUser } from 'react-icons/fa';
 import { AiFillLike } from 'react-icons/ai';
 import css from './ImageModal.module.css';
+import { HandleModalClose, InittialModalParams } from '../App/App.types';
 
-const ImageModal = ({ onModalClose, modalData }) => {
+interface ImageModalProps {
+  onModalClose: HandleModalClose;
+  modalData: InittialModalParams;
+}
+
+const ImageModal: React.FC<ImageModalProps> = ({ onModalClose, modalData }) => {
   return (
     <Modal
       className={css.modal}

@@ -1,33 +1,41 @@
 import { useState, useEffect, useRef } from 'react';
-import { fetchImages } from './unsplash-api';
-import SearchBar from './components/SearchBar/SearchBar';
-import ImageGallery from './components/ImageGallery/ImageGallery';
+import { fetchImages } from '../../unsplash-api';
+import SearchBar from '../SearchBar/SearchBar';
+import ImageGallery from '../ImageGallery/ImageGallery';
 import toast from 'react-hot-toast';
-import Loader from './components/Loader/Loader';
-import ErrorMessage from './components/ErrorMessage/ErrorMessage';
-import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
-import ImageModal from './components/ImageModal/ImageModal';
+import Loader from '../Loader/Loader';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
+import ImageModal from '../ImageModal/ImageModal';
 
 import './App.css';
+import {
+  HandleLoadMore,
+  HandleModalOpen,
+  HandleSearch,
+  Image,
+  InittialModalParams,
+} from './App.types';
 
 function App() {
-  const INITIAL_MODAL_PARAMS = {
+  const INITIAL_MODAL_PARAMS: InittialModalParams = {
     modalIsOpen: false,
     urlRegular: '',
     imgAlt: '',
-    likes: '',
+    likes: 0,
     userName: '',
   };
 
-  const [query, setQuery] = useState('');
-  const [images, setImages] = useState([]);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [loadMoreBtn, setLoadMoreBtn] = useState(false);
+  const [query, setQuery] = useState<string>('');
+  const [images, setImages] = useState<Image[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const [loadMoreBtn, setLoadMoreBtn] = useState<boolean>(false);
   const [modal, setModal] = useState(INITIAL_MODAL_PARAMS);
 
-  const appElementRef = useRef();
+  // const appElementRef = useRef<HTMLDivElement>(null);
+  const appElementRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     async function getImages() {
@@ -56,17 +64,22 @@ function App() {
     getImages();
   }, [query, page]);
 
-  const handleSearch = userQuery => {
+  const handleSearch: HandleSearch = userQuery => {
     setQuery(userQuery);
     setPage(1);
     setImages([]);
   };
 
-  const handleLoadMore = () => {
+  const handleLoadMore: HandleLoadMore = () => {
     setPage(page + 1);
   };
 
-  const handleModalOpen = (urlRegular, imgAlt, likes, userName) => {
+  const handleModalOpen: HandleModalOpen = (
+    urlRegular,
+    imgAlt,
+    likes,
+    userName,
+  ) => {
     setModal({
       modalIsOpen: true,
       urlRegular,
@@ -74,19 +87,19 @@ function App() {
       likes,
       userName,
     });
-    console.log(modal);
   };
-  const handleModalClose = () => {
+  const handleModalClose: HandleModalClose = () => {
     setModal(INITIAL_MODAL_PARAMS);
   };
 
   useEffect(() => {
     if (page === 1) return;
-    appElementRef.current.scrollIntoView({
-      behavior: 'smooth',
-      block: 'end',
-    });
-    console.log('ghjjkk');
+    if (appElementRef.current) {
+      appElementRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+      });
+    }
   }, [page, images]);
 
   return (

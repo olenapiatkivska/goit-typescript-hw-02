@@ -14,7 +14,7 @@
   display: flex;
   overflow: hidden;
   background-color: rgba(0, 0, 0, 0.888);
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   border-radius: 6px;
 }
 .formSearchInput {
@@ -24,7 +24,7 @@
   font-size: 18px;
   color: grey;
   background-color: rgba(0, 0, 0, 0.756);
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   border-radius: 6px;
 }
 .formSearchBar:has(

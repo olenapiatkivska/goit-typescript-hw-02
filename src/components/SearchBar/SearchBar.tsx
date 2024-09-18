@@ -1,18 +1,27 @@
 import toast, { Toaster } from 'react-hot-toast';
 import { IoMdSearch } from 'react-icons/io';
 import css from './SearchBar.module.css';
+import React, { FormEvent } from 'react';
+import { HandleSearch } from '../App/App.types';
 
-const SearchBar = ({ onSubmit }) => {
-  const handleSubmit = event => {
+interface SearchBarProps {
+  onSubmit: HandleSearch;
+}
+
+const SearchBar: React.FC<SearchBarProps> = ({ onSubmit }) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const searchBar = event.target.elements.query.value.trim();
+    const form = event.target as HTMLFormElement;
+    const searchBar = (
+      form.elements.namedItem('query') as HTMLInputElement
+    ).value.trim();
 
     if (searchBar === '') {
       toast.error('Please add a query.');
       return;
     }
     onSubmit(searchBar);
-    event.target.reset();
+    form.reset();
   };
 
   return (
